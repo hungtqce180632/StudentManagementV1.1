@@ -5,8 +5,250 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:StudentManagementV1._1"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="Student Management System" Height="700" Width="1200"
+        WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <!-- Navigation Button Style -->
+        <Style x:Key="NavButtonStyle" TargetType="Button">
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="Padding" Value="15,0,0,0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" 
+                                BorderBrush="{TemplateBinding BorderBrush}" 
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="5">
+                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
+                                              VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#3E67D6"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" Value="#2E57C6"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
 
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="220"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Navigation Panel -->
+        <Grid Grid.Column="0" Background="#2C3E50">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="100"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <!-- Application Logo & Title -->
+            <StackPanel Grid.Row="0" Orientation="Horizontal" VerticalAlignment="Center" Margin="15,0,0,0">
+                <TextBlock Text="Student Management" FontSize="18" FontWeight="Bold" Foreground="White"/>
+            </StackPanel>
+
+            <!-- Navigation Items -->
+            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                <StackPanel>
+                    <!-- Dashboard -->
+                    <Button Content="Dashboard" Style="{StaticResource NavButtonStyle}"/>
+
+                    <!-- Student Management Section -->
+                    <Expander Header="Student Management" Foreground="White" Margin="5" BorderThickness="0">
+                        <StackPanel>
+                            <Button Content="Student Information" Style="{StaticResource NavButtonStyle}"/>
+                            <Button Content="Enrollment" Style="{StaticResource NavButtonStyle}"/>
+                            <Button Content="Attendance" Style="{StaticResource NavButtonStyle}"/>
+                            <Button Content="Grades" Style="{StaticResource NavButtonStyle}"/>
+                            <Button Content="Health Records" Style="{StaticResource NavButtonStyle}"/>
+                            <Button Content="Behavior" Style="{StaticResource NavButtonStyle}"/>
+                        </StackPanel>
+                    </Expander>
+
+                    <!-- Academic Management Section -->
+                    <Expander Header="Academic Management" Foreground="White" Margin="5" BorderThickness="0">
+                        <StackPanel>
+                            <Button Content="Courses" Style="{StaticResource NavButtonStyle}"/>
+                            <Button Content="Teachers" Style="{StaticResource NavButtonStyle}"/>
+                            <Button Content="Scheduling" Style="{StaticResource NavButtonStyle}"/>
+                            <Button Content="Assignments" Style="{StaticResource NavButtonStyle}"/>
+                        </StackPanel>
+                    </Expander>
+
+                    <!-- Administrative Section -->
+                    <Expander Header="Administrative" Foreground="White" Margin="5" BorderThickness="0">
+                        <StackPanel>
+                            <Button Content="Fee Management" Style="{StaticResource NavButtonStyle}"/>
+                            <Button Content="Transportation" Style="{StaticResource NavButtonStyle}"/>
+                            <Button Content="Library" Style="{StaticResource NavButtonStyle}"/>
+                            <Button Content="Events" Style="{StaticResource NavButtonStyle}"/>
+                            <Button Content="Documents" Style="{StaticResource NavButtonStyle}"/>
+                        </StackPanel>
+                    </Expander>
+
+                    <!-- Communication Section -->
+                    <Expander Header="Communication" Foreground="White" Margin="5" BorderThickness="0">
+                        <StackPanel>
+                            <Button Content="Messages" Style="{StaticResource NavButtonStyle}"/>
+                            <Button Content="Notifications" Style="{StaticResource NavButtonStyle}"/>
+                            <Button Content="Parent Portal" Style="{StaticResource NavButtonStyle}"/>
+                            <Button Content="Student Portal" Style="{StaticResource NavButtonStyle}"/>
+                        </StackPanel>
+                    </Expander>
+
+                    <!-- Reports Section -->
+                    <Expander Header="Reports" Foreground="White" Margin="5" BorderThickness="0">
+                        <StackPanel>
+                            <Button Content="Analytics Dashboard" Style="{StaticResource NavButtonStyle}"/>
+                            <Button Content="Student Reports" Style="{StaticResource NavButtonStyle}"/>
+                            <Button Content="Financial Reports" Style="{StaticResource NavButtonStyle}"/>
+                            <Button Content="Custom Reports" Style="{StaticResource NavButtonStyle}"/>
+                        </StackPanel>
+                    </Expander>
+
+                    <!-- Settings Section -->
+                    <Button Content="Settings" Style="{StaticResource NavButtonStyle}"/>
+                </StackPanel>
+            </ScrollViewer>
+
+            <!-- User Profile Summary -->
+            <Border Grid.Row="2" BorderBrush="#3E4E5E" BorderThickness="0,1,0,0" Padding="10">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    
+                    <Border Grid.Column="0" Width="40" Height="40" Background="#4E6E8E" CornerRadius="20">
+                        <TextBlock Text="AD" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White"/>
+                    </Border>
+                    
+                    <StackPanel Grid.Column="1" Margin="10,0,0,0">
+                        <TextBlock Text="Administrator" Foreground="White" FontSize="14"/>
+                        <TextBlock Text="Logged in" Foreground="#AAAAAA" FontSize="12"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </Grid>
+
+        <!-- Main Content Area -->
+        <Grid Grid.Column="1" Background="#F5F5F5">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="60"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="30"/>
+            </Grid.RowDefinitions>
+
+            <!-- Header Bar -->
+            <Border Grid.Row="0" Background="White" BorderBrush="#EEEEEE" BorderThickness="0,0,0,1">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    
+                    <TextBlock Grid.Column="0" Text="Dashboard" Margin="20,0,0,0" FontSize="18" FontWeight="SemiBold" VerticalAlignment="Center"/>
+                    
+                    <StackPanel Grid.Column="1" Orientation="Horizontal" Margin="0,0,20,0">
+                        <Button Content="Help" Width="80" Height="30" Margin="5,0" Background="#2C3E50" Foreground="White" BorderThickness="0"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <!-- Content Area - Will be replaced with ContentControl for navigation -->
+            <Grid Grid.Row="1" Margin="20">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Row="0" Text="Welcome to Student Management System" FontSize="22" FontWeight="Bold" Margin="0,0,0,20"/>
+
+                <!-- Dashboard Content - Will be replaced with actual content -->
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- Summary Cards -->
+                    <Border Grid.Column="0" Margin="0,0,10,0" Background="White" CornerRadius="5" BorderBrush="#EEEEEE" BorderThickness="1">
+                        <Grid Margin="15">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <TextBlock Grid.Row="0" Text="Total Students" FontSize="14" Foreground="#777777"/>
+                            <TextBlock Grid.Row="1" Text="0" FontSize="24" FontWeight="Bold" Margin="0,5,0,0"/>
+                        </Grid>
+                    </Border>
+
+                    <Border Grid.Column="1" Margin="5,0,5,0" Background="White" CornerRadius="5" BorderBrush="#EEEEEE" BorderThickness="1">
+                        <Grid Margin="15">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <TextBlock Grid.Row="0" Text="Total Teachers" FontSize="14" Foreground="#777777"/>
+                            <TextBlock Grid.Row="1" Text="0" FontSize="24" FontWeight="Bold" Margin="0,5,0,0"/>
+                        </Grid>
+                    </Border>
+
+                    <Border Grid.Column="2" Margin="10,0,0,0" Background="White" CornerRadius="5" BorderBrush="#EEEEEE" BorderThickness="1">
+                        <Grid Margin="15">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <TextBlock Grid.Row="0" Text="Active Courses" FontSize="14" Foreground="#777777"/>
+                            <TextBlock Grid.Row="1" Text="0" FontSize="24" FontWeight="Bold" Margin="0,5,0,0"/>
+                        </Grid>
+                    </Border>
+
+                    <!-- Placeholder for future content -->
+                    <Border Grid.Row="1" Grid.ColumnSpan="3" Margin="0,20,0,0" Background="White" CornerRadius="5" BorderBrush="#EEEEEE" BorderThickness="1">
+                        <Grid Margin="15">
+                            <TextBlock Text="Student Management System Dashboard" FontSize="16" FontWeight="SemiBold"/>
+                            <TextBlock Text="This dashboard will display analytics and important information." 
+                                       Margin="0,30,0,0" 
+                                       HorizontalAlignment="Center" 
+                                       VerticalAlignment="Center" 
+                                       Foreground="#777777"/>
+                        </Grid>
+                    </Border>
+                </Grid>
+            </Grid>
+
+            <!-- Status Bar -->
+            <Border Grid.Row="2" Background="#EEEEEE" BorderBrush="#DDDDDD" BorderThickness="0,1,0,0">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    
+                    <TextBlock Grid.Column="0" Text="Ready" Margin="10,0,0,0" VerticalAlignment="Center" FontSize="12"/>
+                    <TextBlock Grid.Column="1" Text="Version 1.1" Margin="0,0,10,0" VerticalAlignment="Center" FontSize="12"/>
+                </Grid>
+            </Border>
+        </Grid>
     </Grid>
 </Window>
