@@ -7,6 +7,7 @@
         xmlns:viewmodels="clr-namespace:StudentManagementV1._1.MVVM.ViewModels"
         xmlns:views="clr-namespace:StudentManagementV1._1.MVVM.Views"
         mc:Ignorable="d"
+<<<<<<< HEAD
         Title="Student Management System" Height="700" Width="1200"
         WindowStartupLocation="CenterScreen">
     <Window.Resources>
@@ -277,5 +278,10 @@
 
 
 </Window>    </Grid>        </Grid>        </Grid>
+=======
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+
+>>>>>>> parent of 0ba9496 (Theme)
     </Grid>
 </Window>
