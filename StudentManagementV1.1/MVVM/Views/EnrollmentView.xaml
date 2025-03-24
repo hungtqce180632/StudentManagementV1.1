@@ -1,0 +1,127 @@
+<UserControl x:Class="StudentManagementV1._1.MVVM.Views.EnrollmentView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:StudentManagementV1._1.MVVM.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="900">
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Text="Enrollment Management" FontSize="22" FontWeight="Bold" Margin="0,0,0,20"/>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="20"/>
+                <ColumnDefinition Width="300"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Enrollment List Section -->
+            <Grid Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <!-- Enrollment DataGrid -->
+                <DataGrid Grid.Row="0" ItemsSource="{Binding Enrollments}" 
+                          SelectedItem="{Binding SelectedEnrollment, Mode=TwoWay}" 
+                          AutoGenerateColumns="False" IsReadOnly="True"
+                          BorderThickness="1" BorderBrush="#DDDDDD"
+                          Background="White" RowBackground="White" AlternatingRowBackground="#F5F5F5"
+                          CanUserAddRows="False" CanUserDeleteRows="False" 
+                          SelectionMode="Single" SelectionUnit="FullRow"
+                          HeadersVisibility="Column" GridLinesVisibility="Horizontal">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="50"/>
+                        <DataGridTextColumn Header="Student" Binding="{Binding Student.FirstName}" Width="100"/>
+                        <DataGridTextColumn Header="Last Name" Binding="{Binding Student.LastName}" Width="100"/>
+                        <DataGridTextColumn Header="Course Code" Binding="{Binding Course.CourseCode}" Width="100"/>
+                        <DataGridTextColumn Header="Course Title" Binding="{Binding Course.Title}" Width="200"/>
+                        <DataGridTextColumn Header="Enrollment Date" Binding="{Binding EnrollmentDate, StringFormat=\{0:MM/dd/yyyy\}}" Width="120"/>
+                        <DataGridTextColumn Header="Status" Binding="{Binding Status}" Width="80"/>
+                        <DataGridCheckBoxColumn Header="Waitlisted" Binding="{Binding IsWaitlisted}" Width="80"/>
+                        <DataGridTextColumn Header="Waitlist Position" Binding="{Binding WaitlistPosition}" Width="120"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+
+            <!-- Enrollment Form Section -->
+            <Border Grid.Column="2" Background="White" BorderBrush="#EEEEEE" BorderThickness="1" CornerRadius="5">
+                <StackPanel Margin="15">
+                    <TextBlock Text="Enrollment Information" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,15"/>
+
+                    <!-- Form Fields -->
+                    <TextBlock Text="Student" Margin="0,5,0,2"/>
+                    <ComboBox ItemsSource="{Binding Students}" 
+                              SelectedItem="{Binding SelectedStudent}" 
+                              DisplayMemberPath="LastName" 
+                              Padding="5" Margin="0,0,0,10">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock>
+                                    <Run Text="{Binding LastName}"/>
+                                    <Run Text=", "/>
+                                    <Run Text="{Binding FirstName}"/>
+                                    <Run Text=" ("/>
+                                    <Run Text="{Binding StudentId}"/>
+                                    <Run Text=")"/>
+                                </TextBlock>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+
+                    <TextBlock Text="Course" Margin="0,5,0,2"/>
+                    <ComboBox ItemsSource="{Binding Courses}" 
+                              SelectedItem="{Binding SelectedCourse}" 
+                              Padding="5" Margin="0,0,0,10">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock>
+                                    <Run Text="{Binding CourseCode}"/>
+                                    <Run Text=" - "/>
+                                    <Run Text="{Binding Title}"/>
+                                </TextBlock>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+
+                    <TextBlock Text="Status" Margin="0,5,0,2"/>
+                    <ComboBox SelectedValue="{Binding Status}" Padding="5" Margin="0,0,0,10">
+                        <ComboBoxItem Content="Enrolled"/>
+                        <ComboBoxItem Content="Waitlisted"/>
+                        <ComboBoxItem Content="Dropped"/>
+                        <ComboBoxItem Content="Completed"/>
+                    </ComboBox>
+
+                    <CheckBox Content="Is Waitlisted" IsChecked="{Binding IsWaitlisted}" Margin="0,5,0,10"/>
+
+                    <TextBlock Text="Waitlist Position" Margin="0,5,0,2" IsEnabled="{Binding IsWaitlisted}"/>
+                    <TextBox Text="{Binding WaitlistPosition, UpdateSourceTrigger=PropertyChanged}" 
+                             Padding="5" Margin="0,0,0,10" IsEnabled="{Binding IsWaitlisted}"/>
+
+                    <TextBlock Text="Notes" Margin="0,5,0,2"/>
+                    <TextBox Text="{Binding Notes, UpdateSourceTrigger=PropertyChanged}" 
+                             Padding="5" Margin="0,0,0,10" TextWrapping="Wrap" AcceptsReturn="True"
+                             Height="80" VerticalScrollBarVisibility="Auto"/>
+
+                    <!-- Action Buttons -->
+                    <StackPanel Orientation="Horizontal" Margin="0,15,0,10">
+                        <Button Command="{Binding AddEnrollmentCommand}" Content="Add" Width="70" Margin="0,0,5,0"
+                                Padding="5" Background="#4CAF50" Foreground="White" BorderThickness="0"/>
+                        <Button Command="{Binding UpdateEnrollmentCommand}" Content="Update" Width="70" Margin="5,0"
+                                Padding="5" Background="#2196F3" Foreground="White" BorderThickness="0"/>
+                        <Button Command="{Binding DeleteEnrollmentCommand}" Content="Delete" Width="70" Margin="5,0,0,0"
+                                Padding="5" Background="#F44336" Foreground="White" BorderThickness="0"/>
+                    </StackPanel>
+                    <Button Command="{Binding ClearFormCommand}" Content="Clear Form" Width="150" Margin="0,5,0,0"
+                            Padding="5" Background="#9E9E9E" Foreground="White" BorderThickness="0"/>
+                </StackPanel>
+            </Border>
+        </Grid>
+    </Grid>
+</UserControl>

@@ -8,6 +8,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using StudentManagementV1._1.MVVM.ViewModels;
 
 namespace StudentManagementV1._1;
 
@@ -19,5 +20,6 @@ public partial class MainWindow : Window
     public MainWindow()
     {
         InitializeComponent();
+        DataContext = new MainViewModel();
     }
 }
